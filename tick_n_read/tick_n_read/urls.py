@@ -16,9 +16,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
-import authentication.views
 from django.conf import settings
+import authentication.views
+import review.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+     path('', LoginView.as_view(
+            template_name='authentication/login.html',
+            redirect_authenticated_user=True),
+        name='login'),
+    path('logout/', LogoutView.as_view()
+         ,name='logout'),
+    path('change-password/', PasswordChangeView.as_view(
+        template_name='authentication/change_password.html'
+    ), name='change-password'),
+    path('change-password-done/', PasswordChangeDoneView.as_view(
+        template_name='authentication/change_password_done.html'
+    ), name='change-password-done'),
+    path('signup/', authentication.views.signup_page, name='signup'),
+    path('home/', review.views.home, name='home'),
 ]

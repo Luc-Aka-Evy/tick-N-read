@@ -9,7 +9,13 @@
             <h1>LitReview</h1>
             {% if user.is_authenticated %}
                 <p>Salut, {{ user }} !</p>
-            {% endif %}    
+                <p><a href="{% url 'home' %}">Flux</a></p>
+                <p><a href="">Posts</a></p>
+                <p><a href="">Abonnements</a></p>
+                <p><a href="{% url 'change-password' %}">Changer de mot de passe</a></p>
+                <p><a href="{% url 'logout' %}">Se déconnecter</a></p>
+            {% endif %}
+            
         </div>
         <div class="main">
             {% block content %}{% endblock content %}
