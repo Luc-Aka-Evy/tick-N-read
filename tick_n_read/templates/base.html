@@ -8,7 +8,6 @@
         <div class="sidebar">
             <h1>LitReview</h1>
             {% if user.is_authenticated %}
-                <p>Salut, {{ user }} !</p>
                 <p><a href="{% url 'home' %}">Flux</a></p>
                 <p><a href="">Posts</a></p>
                 <p><a href="">Abonnements</a></p>
