@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>Bienvenue sur votre compte {{ user.username }} !</h2>
+<p><a href="{% url 'create-review' %}"><button type="submit">Créer une critique</button></a></p>
 {% endblock content %}
