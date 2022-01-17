@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Modifier ticket</h2>
+    <form method="post">
+        {{ edit_ticket.as_p }}
+        {% csrf_token %}
+        <button type="submit" >Sauvegarder</button>
+    </form>
+    <hr>
+    <h3>Supprimer ticket</h3>
+    <form method="post">
+        {{ delete_ticket }}
+        {% csrf_token %}
+        <button type="submit" >Supprimer</button>
+    </form>
+{% endblock content %}

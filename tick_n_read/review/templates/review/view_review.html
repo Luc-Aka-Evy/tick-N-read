@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load blog_extras %}
+{% block content %}
+    <h2>{{ review.headline }}</h2>
+    <p><a href="{% url 'edit-review' review.id %}">Modifier la critique</a></p>
+    <img src="{{ review.ticket.image.url }}">
+    <p>{{ review.ticket.title }}</p>
+    <p><strong>Déscription:</strong> {{ review.ticket.description }}</p>
+    <p><strong>Critique:</strong>{{ review.body }}</p>
+    <p><strong>Notes:</strong> {{ review.rating }}/5</p>
+    <p>Critique crée par {{ review.user }}</p>
+    <p>{{ review.time_created|get_posted_at_display }}</p>
+{% endblock content %}

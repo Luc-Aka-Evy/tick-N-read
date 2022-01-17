@@ -24,6 +24,7 @@ from django.contrib.auth.views import (
 from django.conf import settings
 import authentication.views
 import review.views
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -50,5 +51,15 @@ urlpatterns = [
     path("signup/", authentication.views.signup_page, name="signup"),
     path("home/", review.views.home, name="home"),
     path("ticket/create/", review.views.post_ticket, name="create-ticket"),
+    path('ticket/<int:ticket_id>', review.views.view_ticket, name='view-ticket'),
+    path('ticket/<int:ticket_id>/edit', review.views.edit_ticket, name='edit-ticket'),
     path("review/create/", review.views.post_review, name="create-review"),
+    path('review/<int:review_id>', review.views.view_review, name='view-review'),
+    path('review/<int:review_id>/edit', review.views.edit_review, name='edit-review'),
+    
+    
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
