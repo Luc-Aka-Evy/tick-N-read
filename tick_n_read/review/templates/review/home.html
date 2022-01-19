@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load blog_extras %}
 {% block content %}
-<h2>Bienvenue sur votre compte {{ user.username }} !</h2>
+<h2>{{ user.username }} </h2>
 <p><a href="{% url 'create-review' %}"><button type="submit">Créer une critique</button></a></p>
+<p><a href="{% url 'create-review' %}"><button type="submit">Demander une critique</button></a></p>
 <div class="grid-container">
     {% for instance in ticket %}
         {% if instance|model_type == 'Ticket' %}
@@ -12,6 +13,7 @@
                     <img src="{{ instance.image.url }}">
                     <p><strong>Écrit par {% get_poster_display instance.user %}</strong></p>
                     <p>{{ instance.time_created|get_posted_at_display }}</p>
+                    <p><a href="{% url 'add-review' instance.id %}"><button type="submit">Créer une critique</button></a></p>
                 </a>
             </div>
         {% endif %}

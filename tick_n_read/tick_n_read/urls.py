@@ -51,15 +51,18 @@ urlpatterns = [
     path("signup/", authentication.views.signup_page, name="signup"),
     path("home/", review.views.home, name="home"),
     path("ticket/create/", review.views.post_ticket, name="create-ticket"),
-    path('ticket/<int:ticket_id>', review.views.view_ticket, name='view-ticket'),
-    path('ticket/<int:ticket_id>/edit', review.views.edit_ticket, name='edit-ticket'),
+    path("ticket/<int:ticket_id>", review.views.view_ticket, name="view-ticket"),
+    path("ticket/<int:ticket_id>/edit", review.views.edit_ticket, name="edit-ticket"),
     path("review/create/", review.views.post_review, name="create-review"),
-    path('review/<int:review_id>', review.views.view_review, name='view-review'),
-    path('review/<int:review_id>/edit', review.views.edit_review, name='edit-review'),
-    
-    
+    path("review/<int:review_id>", review.views.view_review, name="view-review"),
+    path("review/<int:review_id>/edit", review.views.edit_review, name="edit-review"),
+    path(
+        "review/<int:ticket_id>/add_review/",
+        review.views.add_review_for_ticket,
+        name="add-review",
+    ),
+    path("follow-users/", review.views.follow_users, name="follow_users"),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(
-        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,8 +2,10 @@
 {% load blog_extras %}
 {% block content %}
     <h2>{{ review.headline }}</h2>
-    <p><a href="{% url 'edit-review' review.id %}">Modifier la critique</a></p>
-    <img src="{{ review.ticket.image.url }}">
+    {% if user == review.user %}
+        <p><a href="{% url 'edit-review' review.id %}"><button type="submit">Modifier la critique</button></a></p>
+    {% endif %}
+    <img src="{{ review.ticket.image.url }}" height="600">
     <p>{{ review.ticket.title }}</p>
     <p><strong>Déscription:</strong> {{ review.ticket.description }}</p>
     <p><strong>Critique:</strong>{{ review.body }}</p>

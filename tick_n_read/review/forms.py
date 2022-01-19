@@ -34,4 +34,10 @@ class DeleteReviewForm(forms.Form):
 class AddReviewForm(forms.ModelForm):
     class Meta:
         model = models.Review
-        fields = ["ticket" ,"rating", "headline", "body"]
+        fields = ["ticket", "rating", "headline", "body"]
+
+
+class FollowUsersForm(forms.ModelForm):
+    class Meta:
+        model = models.UserFollows
+        fields = ["followed_user"]
