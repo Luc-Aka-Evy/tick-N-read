@@ -2,19 +2,17 @@
 {% load blog_extras %}
 {% block content %}
 <h2>{{ user.username }} </h2>
-<h1>Votre flux</h1>
-<p><a href="{% url 'create-review' %}"><button type="submit">Créer une critique</button></a></p>
-<p><a href="{% url 'create-ticket' %}"><button type="submit">Demander une critique</button></a></p>
+<h1>Mes posts</h1>
 <div class="grid-container">
     {% for instance in ticket %}
         {% if instance|model_type == 'Ticket' %}
             <div class="post">
                 <a href="{% url 'view-ticket' instance.id %}">
-                    <h4><strong>{% get_poster_display instance.user %}</strong> a demandé une critique</h4>
-                    <h2>Ticket : {{ instance.title }}</h2>
+                    <h2>Vous avez publié un ticket</h2>
+                    <h4>Ticket : {{ instance.title }}</h4>
                     <img src="{{ instance.image.url }}">
                     <p>{{ instance.time_created|get_posted_at_display }}</p>
-                    <p><a href="{% url 'add-review' instance.id %}"><button type="submit">Créer une critique</button></a></p>
+                    <p><a href="{% url 'edit-ticket' instance.id %}"><button type="submit">Modifier le Ticket</button></a></p>
                 </a>
             </div>
         {% endif %}
@@ -23,12 +21,13 @@
         {% if instance|model_type == 'Review' %}
         <div class="post">
                 <a href="{% url 'view-review' instance.id %}">
-                    <h4><strong>{% get_poster_display instance.user %}</strong> a posté une critique</h4>
-                    <h2>Critique: {{ instance.headline }} - Note: {{ instance.rating }}/5</h2>
+                    <h2>Vous avez publié une critique</h2>
+                    <h4>Critique: {{ instance.headline }} - Note: {{ instance.rating }}/5</h4>
                     <p>ticket publié par: {{ instance.ticket.user }}</p>
                     <p>titre: {{ instance.ticket.title }}</p>
                     <img src="{{ instance.ticket.image.url }}">
                     <p>{{ instance.time_created|get_posted_at_display }}</p>
+                    <p><a href="{% url 'edit-review' instance.id %}"><button type="submit">Modifier la critique</button></a></p>
                 </a>
             </div>
         {% endif %}

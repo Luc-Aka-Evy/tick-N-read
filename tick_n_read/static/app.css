@@ -34,6 +34,7 @@ html {
 .main {
     margin-left: 240px; /* Same as the width of the sidebar */
     padding: 20px;
+    
 }
 
 .avatar {
@@ -50,9 +51,12 @@ html {
     grid-template-columns: auto auto auto;
     padding: 20px;
     text-align: center;
+
 }
 
 .post img {
     width: 80%;
     border-radius: 5px;
 }
+
+

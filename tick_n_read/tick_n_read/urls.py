@@ -50,6 +50,7 @@ urlpatterns = [
     ),
     path("signup/", authentication.views.signup_page, name="signup"),
     path("home/", review.views.home, name="home"),
+    path("my-posts/", review.views.home_posts, name="my-posts"),
     path("ticket/create/", review.views.post_ticket, name="create-ticket"),
     path("ticket/<int:ticket_id>", review.views.view_ticket, name="view-ticket"),
     path("ticket/<int:ticket_id>/edit", review.views.edit_ticket, name="edit-ticket"),

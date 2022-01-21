@@ -5,11 +5,16 @@ from django.views.generic import edit
 from django.db.models import Q
 from . import forms
 from . import models
+from authentication.models import User
 
 
 @login_required
 def home(request):
+
+    user = models.UserFollows.objects.all()
+
     ticket = models.Ticket.objects.all()
+
     review = models.Review.objects.all()
 
     context = {
@@ -17,6 +22,19 @@ def home(request):
         "review": review,
     }
     return render(request, "review/home.html", context=context)
+
+
+@login_required
+def home_posts(request):
+    ticket = models.Ticket.objects.filter(user=request.user)
+
+    review = models.Review.objects.filter(user=request.user)
+
+    context = {
+        "ticket": ticket,
+        "review": review,
+    }
+    return render(request, "review/my_posts.html", context=context)
 
 
 @login_required
@@ -152,10 +170,12 @@ def edit_review(request, review_id):
 def follow_users(request):
     form = forms.FollowUsersForm()
     if request.method == "POST":
-        form = forms.FollowUsersForm(request.POST, instance=request.user)
+        form = forms.FollowUsersForm(request.POST)
         if form.is_valid():
-            form_user = form.save(commit=False)
-            form_user.user = request.user
-            form.save()
-            return redirect("home")
+            follow_form = form.save(commit=False)
+            follow_form.user = request.user
+            follow_form.save()
+
+        return redirect("home")
+
     return render(request, "review/follow_users_form.html", context={"form": form})

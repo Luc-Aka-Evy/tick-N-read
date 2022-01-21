@@ -4,6 +4,12 @@
     <form method="post">
         {{ form.as_p }}
         {% csrf_token %}
-        <button type="submit" >Confirmer</button>
+        <button type="submit" >Envoyer</button>
     </form>
+    <h2>Abonnements</h2>
+    {% for user in followed_user %}
+        <p>{{ user.username }}</p>
+    {% endfor %}
+        
+    <h2>Abonnés</h2>
 {% endblock content %}
