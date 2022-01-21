@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>flake8 violations: tick_n_read/tick_n_read/urls.py</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+<script>
+function bindHandler(link) {
+   var code = link.getAttribute('data-code');
+   var key = location.pathname + '#' + code;
+
+   var ul = link.parentNode.querySelector('.details');
+   if (sessionStorage[key] != 'open') {
+      ul.style.display = 'none';
+   }
+   link.addEventListener('click', function (event) {
+      if (!ul.style.display || ul.style.display == 'none') {
+         ul.style.display = 'block';
+         sessionStorage[key] = 'open';
+      } else {
+         ul.style.display = 'none';
+         sessionStorage[key] = 'closed';
+      }
+   });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+   var links = document.querySelectorAll('#index > li > a');
+   for (var i = 0; i < links.length; i++) {
+      bindHandler(links[i]);
+   }
+});
+</script>
+   </head>
+   <body>
+      <div id="masthead" class="sev-2"></div>
+      <div id="page">
+         <p id="srclink">
+            <a title="View full annotated source"
+               href="tick_n_read.tick_n_read.urls.source.html">
+               <img src="file.svg" alt="&#x2261;">
+            </a></p>
+         <h1>
+            <a href="index.html">
+               <img src="back.svg" alt="&#x2B05;">
+               tick_n_read/tick_n_read/urls.py
+            </a>
+         </h1>
+
+         <ul id="index">
+         
+         <li>
+            <a data-code="E501">
+               <span class="count sev-2">
+                  7
+               </span>
+               <strong>E501:</strong> line too long (87 > 79 characters)
+               
+                  (and 4 similar)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <p>Line too long (87 > 79 characters):</p>
+               
+               <a href="tick_n_read.tick_n_read.urls.source.html#l34">
+                  <tt><i>34</i>             <span class="n">template_name</span><span class="o">=</span><span class="s2">&quot;authentication/login.html&quot;</span><span class="p">,</span> <span class="n">redirect_authenticated_user</span><span class="o">=</span><span class="kc">True</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (88 > 79 characters):</p>
+               
+               <a href="tick_n_read.tick_n_read.urls.source.html#l41">
+                  <tt><i>41</i>         <span class="n">PasswordChangeView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">template_name</span><span class="o">=</span><span class="s2">&quot;authentication/change_password.html&quot;</span><span class="p">),</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (81 > 79 characters):</p>
+               
+               <a href="tick_n_read.tick_n_read.urls.source.html#l55">
+                  <tt><i>55</i>     <span class="n">path</span><span class="p">(</span><span class="s2">&quot;ticket/&lt;int:ticket_id&gt;&quot;</span><span class="p">,</span> <span class="n">review</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">view_ticket</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;view-ticket&quot;</span><span class="p">),</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (86 > 79 characters):</p>
+               
+               <a href="tick_n_read.tick_n_read.urls.source.html#l56">
+                  <tt><i>56</i>     <span class="n">path</span><span class="p">(</span><span class="s2">&quot;ticket/&lt;int:ticket_id&gt;/edit&quot;</span><span class="p">,</span> <span class="n">review</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">edit_ticket</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;edit-ticket&quot;</span><span class="p">),</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (81 > 79 characters):</p>
+               
+               <a href="tick_n_read.tick_n_read.urls.source.html#l58">
+                  <tt><i>58</i>     <span class="n">path</span><span class="p">(</span><span class="s2">&quot;review/&lt;int:review_id&gt;&quot;</span><span class="p">,</span> <span class="n">review</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">view_review</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;view-review&quot;</span><span class="p">),</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (86 > 79 characters):</p>
+               
+               <a href="tick_n_read.tick_n_read.urls.source.html#l59">
+                  <tt><i>59</i>     <span class="n">path</span><span class="p">(</span><span class="s2">&quot;review/&lt;int:review_id&gt;/edit&quot;</span><span class="p">,</span> <span class="n">review</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">edit_review</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;edit-review&quot;</span><span class="p">),</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (80 > 79 characters):</p>
+               
+               <a href="tick_n_read.tick_n_read.urls.source.html#l69">
+                  <tt><i>69</i>     <span class="n">urlpatterns</span> <span class="o">+=</span> <span class="n">static</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_URL</span><span class="p">,</span> <span class="n">document_root</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span><span class="p">)</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         </ul>
+      </div>
+   </body>
+</html>
