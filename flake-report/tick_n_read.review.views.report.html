@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', function () {
 </script>
    </head>
    <body>
-      <div id="masthead" class="sev-1"></div>
+      <div id="masthead" class="sev-2"></div>
       <div id="page">
          <p id="srclink">
             <a title="View full annotated source"
@@ -50,67 +50,6 @@ window.addEventListener('DOMContentLoaded', function () {
          <ul id="index">
          
          <li>
-            <a data-code="F401">
-               <span class="count sev-1">
-                  4
-               </span>
-               <strong>F401:</strong> 'django.contrib.auth.decorators.permission_required' imported but unused
-               
-                  (and 3 similar)
-               
-            </a>
-            <ul class="details">
-            <li>
-               
-               <p>'django.contrib.auth.decorators.permission_required' imported but unused:</p>
-               
-               <a href="tick_n_read.review.views.source.html#l2">
-                  <tt><i>2</i> <span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span><span class="p">,</span> <span class="n">permission_required</span></tt>
-               </a>
-            </li><li>
-               
-               <p>'django.views.generic.edit' imported but unused:</p>
-               
-               <a href="tick_n_read.review.views.source.html#l4">
-                  <tt><i>4</i> <span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">edit</span></tt>
-               </a>
-            </li><li>
-               
-               <p>'django.db.models.Q' imported but unused:</p>
-               
-               <a href="tick_n_read.review.views.source.html#l5">
-                  <tt><i>5</i> <span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span></tt>
-               </a>
-            </li><li>
-               
-               <p>'authentication.models.User' imported but unused:</p>
-               
-               <a href="tick_n_read.review.views.source.html#l8">
-                  <tt><i>8</i> <span class="kn">from</span> <span class="nn">authentication.models</span> <span class="kn">import</span> <span class="n">User</span></tt>
-               </a>
-            </li>
-            </ul>
-         </li>
-         
-         <li>
-            <a data-code="F841">
-               <span class="count sev-1">
-                  1
-               </span>
-               <strong>F841:</strong> local variable 'user' is assigned to but never used
-               
-            </a>
-            <ul class="details">
-            <li>
-               
-               <a href="tick_n_read.review.views.source.html#l14">
-                  <tt><i>14</i>     <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">UserFollows</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></tt>
-               </a>
-            </li>
-            </ul>
-         </li>
-         
-         <li>
             <a data-code="E501">
                <span class="count sev-2">
                   1
@@ -121,8 +60,8 @@ window.addEventListener('DOMContentLoaded', function () {
             <ul class="details">
             <li>
                
-               <a href="tick_n_read.review.views.source.html#l181">
-                  <tt><i>181</i>     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;review/follow_users_form.html&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span></tt>
+               <a href="tick_n_read.review.views.source.html#l178">
+                  <tt><i>178</i>     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;review/follow_users_form.html&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span></tt>
                </a>
             </li>
             </ul>
