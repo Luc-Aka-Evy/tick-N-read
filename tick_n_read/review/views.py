@@ -1,21 +1,18 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from django.views.generic import edit
-from django.db.models import Q
 from . import forms
 from . import models
-from authentication.models import User
 
 
 @login_required
 def home(request):
 
-    user = models.UserFollows.objects.all()
+    user = models.UserFollows.objects.get(user=request.user)
 
-    ticket = models.Ticket.objects.all()
+    ticket = models.Ticket.objects.filter(user=user.followed_user)
 
-    review = models.Review.objects.all()
+    review = models.Review.objects.filter(user=user.followed_user)
 
     context = {
         "ticket": ticket,

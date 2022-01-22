@@ -1,12 +1,5 @@
 from django import forms
-from django.core import validators
-from django.db.models import fields
-from django.forms import widgets
-
 from . import models
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
 
 
 class TicketForm(forms.ModelForm):
