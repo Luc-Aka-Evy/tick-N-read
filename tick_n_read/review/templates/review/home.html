@@ -14,7 +14,7 @@
                     <h2>Ticket : {{ instance.title }}</h2>
                     <img src="{{ instance.image.url }}">
                     <p>{{ instance.time_created|get_posted_at_display }}</p>
-                    <p><a href="{% url 'add-review' instance.id %}"><button type="submit">Créer une critique</button></a></p>
+                    <p><a href="{% url 'add-review' instance.id %}"><button type="submit">Créer une critique</button></a></p>   
                 </a>
             </div>
         {% endif %}

@@ -7,9 +7,12 @@
         <button type="submit" >Envoyer</button>
     </form>
     <h2>Abonnements</h2>
-    {% for user in followed_user %}
-        <p>{{ user.username }}</p>
+    {% for user in following %}
+        <p>{{ user.username }} <a href="{% url 'unfollow' user.id %}"><button type="submit">Désabonner</button></a></p>
     {% endfor %}
         
     <h2>Abonnés</h2>
+    {% for user in followers %}
+        <p>{{ user.username }}</p>
+    {% endfor %}
 {% endblock content %}

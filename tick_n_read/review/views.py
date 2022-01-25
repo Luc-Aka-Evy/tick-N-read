@@ -3,20 +3,38 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from . import forms
 from . import models
-
+from authentication.models import User
 
 @login_required
 def home(request):
 
-    user = models.UserFollows.objects.get(user=request.user)
+    users =[]
+    tickets = []
+    reviews = []
 
-    ticket = models.Ticket.objects.filter(user=user.followed_user)
+    user = models.UserFollows.objects.filter(user=request.user)
 
-    review = models.Review.objects.filter(user=user.followed_user)
+    for i in range(len(user)):
+        users.append(user[i].followed_user)
+    
+    for i in range(len(users)):
+        ticket = models.Ticket.objects.filter(
+            user=users[i]
+    )
+        review = models.Review.objects.filter(
+            user=users[i])
+
+        for i in range(len(ticket)):
+            tickets.append(ticket[i])
+
+        for i in range(len(review)):
+            reviews.append(review[i])
+
+    
 
     context = {
-        "ticket": ticket,
-        "review": review,
+        "ticket": tickets,
+        "review": reviews,
     }
     return render(request, "review/home.html", context=context)
 
@@ -165,14 +183,51 @@ def edit_review(request, review_id):
 
 @login_required
 def follow_users(request):
+    following = []
+    followers = []
+    
+    user = models.UserFollows.objects.filter(user=request.user)
+    user_follower = models.UserFollows.objects.filter(followed_user=request.user)
+
+    for i in range(len(user)):
+        following.append(user[i].followed_user)
+
+    for i in range(len(user_follower)):
+        followers.append(user_follower[i].user)
+
     form = forms.FollowUsersForm()
     if request.method == "POST":
         form = forms.FollowUsersForm(request.POST)
         if form.is_valid():
             follow_form = form.save(commit=False)
             follow_form.user = request.user
+            follow_form.followed_user.save()
             follow_form.save()
-
         return redirect("home")
 
-    return render(request, "review/follow_users_form.html", context={"form": form})
+    context = {
+        "following": following,
+        "followers": followers,
+        "form": form,
+    }
+
+    return render(request, "review/follow_users_form.html", context=context)
+
+@login_required
+def unfollow_users(request, user_id):
+    user_follows = models.UserFollows.objects.filter(user=request.user, followed_user=user_id)
+    follow = get_object_or_404(models.UserFollows, id=user_follows[0].id)
+    unfollow = forms.DeleteFollowUsersForm()
+    
+    if request.method == "POST":
+        unfollow = forms.DeleteFollowUsersForm(request.POST)
+        if unfollow.is_valid():
+            follow.delete()
+        return redirect("home")
+
+    context = {
+        "user_follows": user_follows,
+        "unfollow": unfollow,
+    }
+
+    return render(request, "review/unfollow_users_form.html", context=context)

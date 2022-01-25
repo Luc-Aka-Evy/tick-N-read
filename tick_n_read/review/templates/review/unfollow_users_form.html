@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load blog_extras %}
+{% block content %}
+    <h2>Se désabonner</h2>
+    {% for instance in user_follows %}
+        {% if instance|model_type == 'UserFollows' %}
+            <p>Vous souhaitez vous désabonner de {{ instance.followed_user }}</p>
+        {% endif %}
+    {% endfor %}
+    <form method="post">
+        {{ unfollow }}
+        {% csrf_token %}
+        <button type="submit" >Confirmer</button>
+    </form>
+{% endblock content %}
