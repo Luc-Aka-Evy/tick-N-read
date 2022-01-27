@@ -28,10 +28,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', LoginView.as_view(
-            template_name="authentication/login.html", 
-            redirect_authenticated_user=True),
-        name='login'
+    path(
+        "",
+        LoginView.as_view(
+            template_name="authentication/login.html", redirect_authenticated_user=True
+        ),
+        name="login",
     ),
     path("logout/", LogoutView.as_view(), name="logout"),
     path(
@@ -61,7 +63,7 @@ urlpatterns = [
         name="add-review",
     ),
     path("follow-users/", review.views.follow_users, name="follow_users"),
-    path("unfollow/<int:user_id>", review.views.unfollow_users, name="unfollow")
+    path("unfollow/<int:user_id>", review.views.unfollow_users, name="unfollow"),
 ]
 
 if settings.DEBUG:

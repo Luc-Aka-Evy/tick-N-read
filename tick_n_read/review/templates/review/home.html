@@ -3,31 +3,41 @@
 {% block content %}
 <h2>{{ user.username }} </h2>
 <h1>Votre flux</h1>
-<p><a href="{% url 'create-review' %}"><button type="submit">Créer une critique</button></a></p>
-<p><a href="{% url 'create-ticket' %}"><button type="submit">Demander une critique</button></a></p>
+<p><a href="{% url 'create-review' %}"><button type="submit" class="btn btn-outline-success">Créer une critique</button></a></p>
+<p><a href="{% url 'create-ticket' %}"><button type="submit" class="btn btn-outline-success">Demander une critique</button></a></p>
 <div class="grid-container">
     {% for instance in ticket %}
         {% if instance|model_type == 'Ticket' %}
-            <div class="post">
-                <a href="{% url 'view-ticket' instance.id %}">
-                    <h4><strong>{% get_poster_display instance.user %}</strong> a demandé une critique</h4>
+            <div class="post ">
+                <h4><strong>{% get_poster_display instance.user %}</strong> a demandé une critique</h4>
+                <a href="{% url 'view-ticket' instance.id %}" class="link-light">
                     <h2>Ticket : {{ instance.title }}</h2>
-                    <img src="{{ instance.image.url }}">
+                    {% if instance.image %}
+                        <img src="{{ instance.image.url }}">
+                    {% endif %}
                     <p>{{ instance.time_created|get_posted_at_display }}</p>
-                    <p><a href="{% url 'add-review' instance.id %}"><button type="submit">Créer une critique</button></a></p>   
+                    <p><a href="{% url 'add-review' instance.id %}"><button type="submit" class="btn btn-outline-success">Créer une critique</button></a></p>   
                 </a>
             </div>
         {% endif %}
     {% endfor %}    
     {% for instance in review %}
         {% if instance|model_type == 'Review' %}
-        <div class="post">
-                <a href="{% url 'view-review' instance.id %}">
+        <div class="post p-3 mb-2 bg-success text-white " style="margin: 20px;">
+                {% if instance.ticket.user == user %}
+                    <h4><strong>{% get_poster_display instance.user %}</strong> a répondu à votre ticket</h4>
+                {% else %}
                     <h4><strong>{% get_poster_display instance.user %}</strong> a posté une critique</h4>
-                    <h2>Critique: {{ instance.headline }} - Note: {{ instance.rating }}/5</h2>
-                    <p>ticket publié par: {{ instance.ticket.user }}</p>
-                    <p>titre: {{ instance.ticket.title }}</p>
-                    <img src="{{ instance.ticket.image.url }}">
+                {% endif %}
+                <h2>Critique: {{ instance.headline }} - Note: {{ instance.rating }}/5</h2>
+                <a href="{% url 'view-review' instance.id %}" class="link-light ">
+                    <div class="border border-success border-2 p-3 mb-2 bg-dark text-white">
+                        <p>ticket publié par: {% get_poster_display instance.ticket.user %}</p>
+                        <p>titre: {{ instance.ticket.title }}</p>
+                        {% if instance.ticket.image %}
+                            <img src="{{ instance.ticket.image.url }}">
+                        {% endif %}
+                    </div>
                     <p>{{ instance.time_created|get_posted_at_display }}</p>
                 </a>
             </div>

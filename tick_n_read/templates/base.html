@@ -2,9 +2,10 @@
 <html>
     <head>
         <title>LitReview</title>
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'app.css' %}">
     </head>
-    <body>
+    <body class="p-3 mb-2 bg-dark text-white">
         <div class="sidebar">
             <h1>LitReview</h1>
             {% if user.is_authenticated %}
@@ -15,7 +16,7 @@
                 <p><a href="{% url 'logout' %}">Se déconnecter</a></p>
             {% endif %}
         </div>
-        <div class="main">
+        <div class="main ">
             {% block content %}{% endblock content %}
         </div>
     </body>

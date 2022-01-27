@@ -4,6 +4,6 @@
     <form method="post" enctype="multipart/form-data">
         {{ ticket_form.as_p }}
         {% csrf_token %}
-        <button type="submit" >Envoyer</button>
+        <button type="submit" class="=btn btn-success" >Envoyer</button>
     </form>
 {% endblock content %}

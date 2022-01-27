@@ -1,15 +1,18 @@
 from django import forms
+from django.core import validators
 from django.forms import widgets
-from . import models
+from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+from .models import Ticket, Review
 
 
 class TicketForm(forms.ModelForm):
     edit_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
     class Meta:
-        model = models.Ticket
+        model = Ticket
         fields = ["title", "description", "image"]
-        labels = {'title': 'Titre'}
+        labels = {"title": "Titre"}
 
 
 class DeleteTicketForm(forms.Form):
@@ -18,12 +21,16 @@ class DeleteTicketForm(forms.Form):
 
 class CreateReviewForm(forms.ModelForm):
     edit_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+    rating_choices = [(0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5)]
+    ratings = forms.ChoiceField(
+        label="Notes", choices=rating_choices, widget=forms.RadioSelect
+    )
 
     class Meta:
-        model = models.Review
-        fields = ["rating", "headline", "body"]
-        labels = {'rating': 'Notes', 'headline': 'Titre', 'body': 'Commentaires'}
-        widgets = {'body': forms.Textarea}
+        model = Review
+        fields = ["headline", "body"]
+        labels = {"rating": "Notes", "headline": "Titre", "body": "Commentaires"}
+        widgets = {"body": forms.Textarea}
 
 
 class DeleteReviewForm(forms.Form):
@@ -32,17 +39,13 @@ class DeleteReviewForm(forms.Form):
 
 class AddReviewForm(forms.ModelForm):
     class Meta:
-        model = models.Review
+        model = Review
         fields = ["ticket", "rating", "headline", "body"]
 
 
-class FollowUsersForm(forms.ModelForm):
-    class Meta:
-        model = models.UserFollows
-        fields = ["followed_user"]
-        labels = {'followed_user': 'nom d''utilisateur'}
-        widgets = {'followed_user': forms.TextInput}
-               
+class FollowUsersForm(forms.Form):
+    search = forms.CharField(label="Nom d'utilisateur:")
+
 
 class DeleteFollowUsersForm(forms.Form):
     unfollow = forms.BooleanField(widget=forms.HiddenInput, initial=True)

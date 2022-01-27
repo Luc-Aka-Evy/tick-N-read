@@ -4,13 +4,13 @@
     <form method="post">
         {{ edit_review.as_p }}
         {% csrf_token %}
-        <button type="submit" >Sauvegarder</button>
+        <button type="submit" class="btn btn-succes" >Sauvegarder</button>
     </form>
     <hr>
     <h3>Supprimer critique</h3>
     <form method="post">
         {{ delete_review }}
         {% csrf_token %}
-        <button type="submit" >Supprimer</button>
+        <button type="submit" class="btn btn-danger" >Supprimer</button>
     </form>
 {% endblock content %}

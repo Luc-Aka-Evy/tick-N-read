@@ -4,11 +4,11 @@
     <form method="post">
         {{ form.as_p }}
         {% csrf_token %}
-        <button type="submit" >Envoyer</button>
+        <button type="submit" class="btn btn-success">Envoyer</button>
     </form>
     <h2>Abonnements</h2>
     {% for user in following %}
-        <p>{{ user.username }} <a href="{% url 'unfollow' user.id %}"><button type="submit">Désabonner</button></a></p>
+        <p>{{ user.username }} <a href="{% url 'unfollow' user.id %}"><button type="submit" class="btn btn-secondary">Désabonner</button></a></p>
     {% endfor %}
         
     <h2>Abonnés</h2>

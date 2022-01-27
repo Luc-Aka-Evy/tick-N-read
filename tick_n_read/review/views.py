@@ -4,25 +4,25 @@ from django.shortcuts import get_object_or_404
 from . import forms
 from . import models
 from authentication.models import User
+from operator import attrgetter
+
 
 @login_required
 def home(request):
 
-    users =[]
+    users = []
     tickets = []
     reviews = []
 
     user = models.UserFollows.objects.filter(user=request.user)
+    answer = models.Review.objects.all()
 
     for i in range(len(user)):
         users.append(user[i].followed_user)
-    
+
     for i in range(len(users)):
-        ticket = models.Ticket.objects.filter(
-            user=users[i]
-    )
-        review = models.Review.objects.filter(
-            user=users[i])
+        ticket = models.Ticket.objects.filter(user=users[i]).order_by("-time_created")
+        review = models.Review.objects.filter(user=users[i]).order_by("-time_created")
 
         for i in range(len(ticket)):
             tickets.append(ticket[i])
@@ -30,7 +30,13 @@ def home(request):
         for i in range(len(review)):
             reviews.append(review[i])
 
-    
+    for answers in answer:
+        if (
+            answers.ticket.user == request.user
+            and answers.user != request.user
+            and answers.user not in users
+        ):
+            reviews.append(answers)
 
     context = {
         "ticket": tickets,
@@ -114,6 +120,7 @@ def post_review(request):
             review.ticket = ticket_form.save(commit=False)
             review.ticket.user = request.user
             review.user = request.user
+            review.rating = review_form.cleaned_data["ratings"]
             review.ticket.save()
             review.save()
 
@@ -144,6 +151,7 @@ def add_review_for_ticket(request, ticket_id):
             review.ticket = ticket
             review.ticket.save()
             review.user = request.user
+            review.rating = review_form.cleaned_data["ratings"]
             review.save()
 
         return redirect("home")
@@ -185,7 +193,7 @@ def edit_review(request, review_id):
 def follow_users(request):
     following = []
     followers = []
-    
+
     user = models.UserFollows.objects.filter(user=request.user)
     user_follower = models.UserFollows.objects.filter(followed_user=request.user)
 
@@ -198,11 +206,14 @@ def follow_users(request):
     form = forms.FollowUsersForm()
     if request.method == "POST":
         form = forms.FollowUsersForm(request.POST)
+
         if form.is_valid():
-            follow_form = form.save(commit=False)
-            follow_form.user = request.user
-            follow_form.followed_user.save()
-            follow_form.save()
+            follow_user = models.UserFollows()
+            follow_user.user = request.user
+            follow_user.followed_user = User.objects.filter(
+                username=form.cleaned_data["search"]
+            ).get()
+            follow_user.save()
         return redirect("home")
 
     context = {
@@ -213,12 +224,15 @@ def follow_users(request):
 
     return render(request, "review/follow_users_form.html", context=context)
 
+
 @login_required
 def unfollow_users(request, user_id):
-    user_follows = models.UserFollows.objects.filter(user=request.user, followed_user=user_id)
+    user_follows = models.UserFollows.objects.filter(
+        user=request.user, followed_user=user_id
+    )
     follow = get_object_or_404(models.UserFollows, id=user_follows[0].id)
     unfollow = forms.DeleteFollowUsersForm()
-    
+
     if request.method == "POST":
         unfollow = forms.DeleteFollowUsersForm(request.POST)
         if unfollow.is_valid():
