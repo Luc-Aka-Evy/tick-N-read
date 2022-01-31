@@ -6,7 +6,9 @@
         <p><a href="{% url 'edit-ticket' ticket.id %}"><button type="submit" class="btn btn-outline-success">Modifier le Ticket</button></a></p>
     {% endif %}
     <p><a href="{% url 'add-review' ticket.id %}"><button type="submit" class="btn btn-outline-success">Créer une critique</button></a></p>
-    <img src="{{ ticket.image.url }}" height="600">
+    {% if ticket.image %}
+        <img src="{{ ticket.image.url }}" height="600">
+    {% endif %}
     <p><strong>Déscription:</strong>{{ ticket.description }}</p>
     <p>Ticket crée par {{ ticket.user }}</p>
     <p>{{ ticket.time_created|get_posted_at_display }}</p>

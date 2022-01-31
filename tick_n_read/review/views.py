@@ -90,9 +90,10 @@ def edit_ticket(request, ticket_id):
 
     if request.method == "POST":
         if "edit_ticket" in request.POST:
-            edit_form = forms.TicketForm(request.POST, instance=ticket)
-            if edit_form.is_valid():
-                edit_form.save()
+            edit_ticket = forms.TicketForm(request.POST, request.FILES, instance=ticket)
+            if edit_ticket.is_valid():
+                ticket_form = edit_ticket.save(commit=False)
+                ticket_form.save()
                 return redirect("home")
         elif "delete_ticket" in request.POST:
             delete_form = forms.DeleteTicketForm(request.POST)
@@ -174,7 +175,9 @@ def edit_review(request, review_id):
         if "edit_review" in request.POST:
             edit_form = forms.CreateReviewForm(request.POST, instance=review)
             if edit_form.is_valid():
-                edit_form.save()
+                edit_review = edit_form.save(commit=False)
+                edit_review.rating = edit_form.cleaned_data["ratings"]
+                edit_review.save()
                 return redirect("home")
         elif "delete_review" in request.POST:
             delete_form = forms.DeleteReviewForm(request.POST)

@@ -4,7 +4,9 @@
     <form method="post" enctype="multipart/form-data">
         <p>Vous créer une critique en réponse au ticket de {{ ticket.user }}</p>
         <p>{{ ticket.title }}</p>
-        <p><img src="{{ ticket.image.url }}" height="300"></p>
+        {% if ticket.image %}
+            <p><img src="{{ ticket.image.url }}" height="300"></p>
+        {% endif %}
         {{ review_form.as_p }}
         {% csrf_token %}
         <button type="submit" class="btn btn-success" >Envoyer</button>

@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2>Modifier critique</h2>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {{ edit_review.as_p }}
         {% csrf_token %}
-        <button type="submit" class="btn btn-succes" >Sauvegarder</button>
+        <button type="submit" class="btn btn-success" >Sauvegarder</button>
     </form>
     <hr>
     <h3>Supprimer critique</h3>

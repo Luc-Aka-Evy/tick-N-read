@@ -3,9 +3,11 @@
 {% block content %}
     <h2>{{ review.headline }}</h2>
     {% if user == review.user %}
-        <p><a href="{% url 'edit-review' review.id %}"><button type="submit">Modifier la critique</button></a></p>
+        <p><a href="{% url 'edit-review' review.id %}"><button type="submit" class="btn btn-outline-success">Modifier la critique</button></a></p>
     {% endif %}
-    <img src="{{ review.ticket.image.url }}" height="600">
+    {% if review.ticket.image %}
+        <img src="{{ review.ticket.image.url }}" height="600">
+    {% endif %}
     <p>{{ review.ticket.title }}</p>
     <p><strong>Déscription:</strong> {{ review.ticket.description }}</p>
     <p><strong>Critique:</strong>{{ review.body }}</p>
