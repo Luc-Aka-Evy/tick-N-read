@@ -255,9 +255,12 @@ def follow_users(request):
         if form.is_valid():
             follow_user = models.UserFollows()
             follow_user.user = request.user
-            follow_user.followed_user = User.objects.filter(
+            try:
+                follow_user.followed_user = User.objects.filter(
                 username=form.cleaned_data["search"]
-            ).get()
+                ).get()
+            except User.DoesNotExist:
+                return redirect("user-not-find")
             follow_user.save()
         return redirect("home")
 
@@ -268,6 +271,10 @@ def follow_users(request):
     }
 
     return render(request, "review/follow_users_form.html", context=context)
+
+@login_required
+def user_not_find(request):
+    return render(request, "review/user_not_find.html")
 
 
 @login_required

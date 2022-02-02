@@ -64,6 +64,7 @@ urlpatterns = [
     ),
     path("follow-users/", review.views.follow_users, name="follow_users"),
     path("unfollow/<int:user_id>", review.views.unfollow_users, name="unfollow"),
+    path("user-not-find/", review.views.user_not_find, name="user-not-find"),
 ]
 
 if settings.DEBUG:

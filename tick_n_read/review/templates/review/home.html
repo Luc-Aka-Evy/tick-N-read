@@ -24,7 +24,7 @@
                 </a>
             </div>
         {% elif instance|model_type == 'Review' %}
-        <div class="post p-3 mb-2 bg-success text-white " style="margin: 20px;">
+        <div class="post p-3 mb-2 bg-success text-white " style="margin: 20px; border-radius: 10px;">
                 {% if instance.ticket.user == user %}
                     <h4><strong>{% get_poster_display instance.user %}</strong> a répondu à votre ticket</h4>
                 {% else %}
