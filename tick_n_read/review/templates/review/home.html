@@ -6,7 +6,7 @@
 <p><a href="{% url 'create-review' %}"><button type="submit" class="btn btn-outline-success">Créer une critique</button></a></p>
 <p><a href="{% url 'create-ticket' %}"><button type="submit" class="btn btn-outline-success">Demander une critique</button></a></p>
 <div class="grid-container">
-    {% for instance in ticket %}
+    {% for instance in page_obj %}
         {% if instance|model_type == 'Ticket' %}
             <div class="post ">
                 <h4><strong>{% get_poster_display instance.user %}</strong> a demandé une critique</h4>
@@ -16,13 +16,14 @@
                         <img src="{{ instance.image.url }}">
                     {% endif %}
                     <p>{{ instance.time_created|get_posted_at_display }}</p>
-                    <p><a href="{% url 'add-review' instance.id %}"><button type="submit" class="btn btn-outline-success">Créer une critique</button></a></p>   
+                    {% if instance in user_reviews %}
+                        <p>Vous avez déja écrit une critique à ce sujet</p>
+                    {% else %}
+                        <p><a href="{% url 'add-review' instance.id %}"><button type="submit" class="btn btn-outline-success">Créer une critique</button></a></p>
+                    {% endif %}
                 </a>
             </div>
-        {% endif %}
-    {% endfor %}    
-    {% for instance in review %}
-        {% if instance|model_type == 'Review' %}
+        {% elif instance|model_type == 'Review' %}
         <div class="post p-3 mb-2 bg-success text-white " style="margin: 20px;">
                 {% if instance.ticket.user == user %}
                     <h4><strong>{% get_poster_display instance.user %}</strong> a répondu à votre ticket</h4>
@@ -44,4 +45,20 @@
         {% endif %}
     {% endfor %}
 </div>
+<span style="display: flex; justify-content: center;">
+    {% if page_obj.has_previous %}
+        <a href="?page=1">« première</a>
+        <a href="?page={{ page_obj.previous_page_number }}" style="margin: auto;">précédente</a>
+    {% endif %}
+
+    <span>
+        Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}.
+
+    </span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" style="margin: auto;">suivante</a>
+        
+        <a href="?page={{ page_obj.paginator.num_pages }}">dernière »</a>
+    {% endif %}
+</span>
 {% endblock content %}

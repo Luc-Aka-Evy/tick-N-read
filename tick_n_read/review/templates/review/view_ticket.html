@@ -5,7 +5,9 @@
     {% if user == ticket.user %}
         <p><a href="{% url 'edit-ticket' ticket.id %}"><button type="submit" class="btn btn-outline-success">Modifier le Ticket</button></a></p>
     {% endif %}
-    <p><a href="{% url 'add-review' ticket.id %}"><button type="submit" class="btn btn-outline-success">Créer une critique</button></a></p>
+    {% if ticket not in commented %}
+        <p><a href="{% url 'add-review' ticket.id %}"><button type="submit" class="btn btn-outline-success">Créer une critique</button></a></p>
+    {% endif %}
     {% if ticket.image %}
         <img src="{{ ticket.image.url }}" height="600">
     {% endif %}

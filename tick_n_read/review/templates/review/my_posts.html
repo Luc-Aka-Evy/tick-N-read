@@ -4,7 +4,7 @@
 <h2>{{ user.username }} </h2>
 <h1>Mes posts</h1>
 <div class="grid-container">
-    {% for instance in ticket %}
+    {% for instance in page_obj %}
         {% if instance|model_type == 'Ticket' %}
             <div class="post">
                 <h2>Vous avez publié un ticket</h2>
@@ -17,10 +17,7 @@
                     <p><a href="{% url 'edit-ticket' instance.id %}"><button type="submit" class="btn btn-outline-success">Modifier le Ticket</button></a></p>
                 </a>
             </div>
-        {% endif %}
-    {% endfor %}    
-    {% for instance in review %}
-        {% if instance|model_type == 'Review' %}
+        {% elif instance|model_type == 'Review' %}
         <div class="post p-3 mb-2 bg-success text-white" style="margin: 20px;">
                 <h2>Vous avez publié une critique</h2>
                 <a href="{% url 'view-review' instance.id %}" class="link-light">
@@ -38,5 +35,22 @@
             </div>
         {% endif %}
     {% endfor %}
+    
 </div>
+<span style="display: flex; justify-content: center;">
+    {% if page_obj.has_previous %}
+        <a href="?page=1">« première</a>
+        <a href="?page={{ page_obj.previous_page_number }}" style="margin: auto;">précédente</a>
+    {% endif %}
+
+    <span>
+        Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}.
+
+    </span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" style="margin: auto;">suivante</a>
+        
+        <a href="?page={{ page_obj.paginator.num_pages }}">dernière »</a>
+    {% endif %}
+</span>
 {% endblock content %}

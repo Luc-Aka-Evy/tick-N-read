@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator
+from itertools import chain
 from . import forms
 from . import models
 from authentication.models import User
-from operator import attrgetter
 
 
 @login_required
@@ -13,16 +14,19 @@ def home(request):
     users = []
     tickets = []
     reviews = []
+    user_reviews = []
 
     user = models.UserFollows.objects.filter(user=request.user)
     answer = models.Review.objects.all()
+    reviews_of_user = models.Review.objects.filter(user=request.user)
+
 
     for i in range(len(user)):
         users.append(user[i].followed_user)
 
     for i in range(len(users)):
-        ticket = models.Ticket.objects.filter(user=users[i]).order_by("-time_created")
-        review = models.Review.objects.filter(user=users[i]).order_by("-time_created")
+        ticket = models.Ticket.objects.filter(user=users[i])
+        review = models.Review.objects.filter(user=users[i])
 
         for i in range(len(ticket)):
             tickets.append(ticket[i])
@@ -38,30 +42,68 @@ def home(request):
         ):
             reviews.append(answers)
 
+    
+    for i in range(len(reviews_of_user)):
+        user_reviews.append(reviews_of_user[i].ticket)
+
+    tickets_and_reviews = sorted(
+        chain(tickets, reviews),
+        key=lambda instance: instance.time_created,
+        reverse=True
+    )
+    
+    
+    paginator = Paginator(tickets_and_reviews, 6)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     context = {
-        "ticket": tickets,
-        "review": reviews,
+        "user_reviews": user_reviews,
+        "page_obj": page_obj
     }
     return render(request, "review/home.html", context=context)
 
 
 @login_required
 def home_posts(request):
-    ticket = models.Ticket.objects.filter(user=request.user)
+    tickets = models.Ticket.objects.filter(user=request.user).order_by("-time_created")
 
-    review = models.Review.objects.filter(user=request.user)
+    reviews = models.Review.objects.filter(user=request.user).order_by("-time_created")
+
+    tickets_and_reviews = sorted(
+        chain(tickets, reviews),
+        key=lambda instance: instance.time_created,
+        reverse=True
+    )
+
+    paginator = Paginator(tickets_and_reviews, 6)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
 
     context = {
-        "ticket": ticket,
-        "review": review,
+        "page_obj": page_obj
     }
     return render(request, "review/my_posts.html", context=context)
 
 
 @login_required
 def view_ticket(request, ticket_id):
+    comment_ticket = []
+    user_reviews = models.Review.objects.filter(user=request.user)
+
+    for i in range(len(user_reviews)):
+        comment_ticket.append(user_reviews[i].ticket)
+
     ticket = get_object_or_404(models.Ticket, id=ticket_id)
-    return render(request, "review/view_ticket.html", {"ticket": ticket})
+
+    context = {
+        "ticket": ticket,
+        "commented": comment_ticket
+    }
+    return render(request, "review/view_ticket.html", context=context)
 
 
 @login_required
