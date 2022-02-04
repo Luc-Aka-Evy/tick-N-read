@@ -11,11 +11,13 @@ You can follow the other users and respond to their critics if you want to.
 to follow an user you have to write his **username** in the search field.
 
 # Installation
--Clone ths repository by run `git glone https://github.com/Luc-Aka-Evy/tick-N-read.git`
+-Clone this repository by run `git clone https://github.com/Luc-Aka-Evy/tick-N-read.git`
 
 -Create a virtual env by run `python -m venv env` precise `python3`  if you use VS code
 
 -Activate the virtual env by run `source env/bin/activate`
+
+-Go in the directory by run `cd tick-N-read`
 
 -Install the dependencies by run `pip install -r requirements.txt`
 
