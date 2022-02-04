@@ -22,7 +22,6 @@ to follow an user you have to write his **username** in the search field.
 -Install the dependencies by run `pip install -r requirements.txt`
 
 # Usage
-To use the application go in the repository with the command `cd tick-n-read`
 
 run `python manage.py runserver`
 
