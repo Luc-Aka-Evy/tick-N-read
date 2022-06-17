@@ -28,3 +28,5 @@ run `python manage.py runserver` `python3` if you use VS code
 
 Enjoy
  
+# Contribution
+[Luc Aka-Evy](https://github.com/Luc-Aka-Evy)
